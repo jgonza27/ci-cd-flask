@@ -16,6 +16,21 @@ class BasicTests(unittest.TestCase):
         self.assertEqual(result.status_code, 200)
         self.assertEqual(result.data.decode(), "Hello, World!")
 
+    def test_health(self):
+        # Envía una solicitud GET a la ruta '/health'
+        result = self.app.get('/health')
+
+        # Verifica que la respuesta sea "Healthy"
+        self.assertEqual(result.status_code, 200)
+        self.assertEqual(result.data.decode(), "Healthy")
+
+    def test_not_found(self):
+        # Envía una solicitud GET a una ruta inexistente
+        result = self.app.get('/non_existent_route')
+
+        # Verifica que el código de estado sea 404
+        self.assertEqual(result.status_code, 404)
+
 
 if __name__ == "__main__":
     unittest.main()
